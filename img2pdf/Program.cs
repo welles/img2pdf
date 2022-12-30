@@ -94,5 +94,5 @@ for (var pageNumber = 1; pageNumber <= inputFilePaths.Length; pageNumber++)
 pdf.Close();
 
 Console.ForegroundColor = ConsoleColor.Green;
-Console.WriteLine($"Document {outputFileInfo.Name} was crated successfully! Exiting...");
+Console.WriteLine($"Document {outputFileInfo.Name} was created successfully! Exiting...");
 Console.ForegroundColor = ConsoleColor.White;
