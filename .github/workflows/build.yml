@@ -1,0 +1,29 @@
+name: Build & Release
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build & Release
+    runs-on: windows-latest
+    env:
+      DOTNET_NOLOGO: 1
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+
+      - name: Build img2pdf
+        run: dotnet publish -r win-x64 --configuration Release -p:PublishSingleFile=true --self-contained false
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: img2pdf
+          path: ${{github.workspace}}\img2pdf\bin\Release\net7.0\win-x64\publish
