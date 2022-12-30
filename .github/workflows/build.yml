@@ -22,6 +22,12 @@ jobs:
       - name: Build img2pdf
         run: dotnet publish -r win-x64 --configuration Release -p:PublishSingleFile=true --self-contained false
 
+      - uses: kzrnm/get-net-sdk-project-versions-action@v1
+        id: get-version
+        with:
+          proj-path: img2pdf\img2pdf.csproj
+      - run: echo "${{steps.get-version.outputs.version}}"
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
