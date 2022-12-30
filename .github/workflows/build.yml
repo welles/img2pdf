@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-dotnet@v3
 
       - name: Build img2pdf
-        run: dotnet publish -r win-x64 --configuration Release -p:PublishSingleFile=true --self-contained false
+        run: dotnet publish -r win-x64 --configuration Release -p:PublishSingleFile=true --self-contained false -o publish
 
       - uses: kzrnm/get-net-sdk-project-versions-action@v1
         id: get-version
@@ -32,4 +32,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: img2pdf
-          path: ${{github.workspace}}\img2pdf\bin\Release\net7.0\win-x64\publish
+          path: ${{github.workspace}}\publish
