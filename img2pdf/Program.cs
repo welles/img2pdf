@@ -9,7 +9,7 @@ if (args.Length == 0)
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("No file paths have been supplied. Exiting...");
     Console.ForegroundColor = ConsoleColor.White;
-    return;
+    return 1;
 }
 
 if (args.Length < 2)
@@ -17,7 +17,7 @@ if (args.Length < 2)
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("Either no input or output files have been supplied. The last file path must be the result file. Exiting...");
     Console.ForegroundColor = ConsoleColor.White;
-    return;
+    return 2;
 }
 
 var inputFilePaths = args[0..^1];
@@ -35,7 +35,7 @@ foreach (var filePath in inputFilePaths)
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine($"The file {inputFileInfo.Name} is not an image. Exiting...");
         Console.ForegroundColor = ConsoleColor.White;
-        return;
+        return 3;
     }
 
     if (!inputFileInfo.Exists)
@@ -43,7 +43,7 @@ foreach (var filePath in inputFilePaths)
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine($"The file {inputFileInfo.Name} does not exist. Exiting...");
         Console.ForegroundColor = ConsoleColor.White;
-        return;
+        return 4;
     }
 }
 
@@ -54,7 +54,7 @@ if (!allowedOutputExtensions.Contains(outputFileInfo.Extension, StringComparer.O
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine($"The file {outputFileInfo.Name} is not a PDF document. Exiting...");
     Console.ForegroundColor = ConsoleColor.White;
-    return;
+    return 5;
 }
 
 if (outputFileInfo.Exists)
@@ -62,7 +62,7 @@ if (outputFileInfo.Exists)
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine($"The file {outputFileInfo.Name} already exists. Exiting...");
     Console.ForegroundColor = ConsoleColor.White;
-    return;
+    return 6;
 }
 
 using var stream = new FileStream(outputFilePath, FileMode.CreateNew);
@@ -96,3 +96,5 @@ pdf.Close();
 Console.ForegroundColor = ConsoleColor.Green;
 Console.WriteLine($"Document {outputFileInfo.Name} was created successfully! Exiting...");
 Console.ForegroundColor = ConsoleColor.White;
+
+return 0;
